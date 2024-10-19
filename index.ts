@@ -1,14 +1,5 @@
-type Something = {
-	name: string;
-	age: number;
-};
+import type { LinkedList as L } from "./src/linked-list";
 
-const something: Something = {
-	name: "",
-	age: 0,
-};
-
-const name = "hi";
-
-console.log({ name });
-
+type linkedListResult = L.pop<
+	L.push<L.push<L.push<L.push<[0], 5>, 5>, 6>, 7>
+>;
