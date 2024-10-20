@@ -42,4 +42,25 @@ export namespace BST {
 					? { value: value; left: null; right: null }
 					: insert<root["left"], value>;
 			};
+
+	export type search<
+		root extends { value: any; left: any; right: any },
+		value extends number,
+	> = root["value"] extends value
+		? value
+		: Numbers.gt<root["value"], value> extends true
+			? root["left"] extends {
+					value: any;
+					left: any;
+					right: any;
+				}
+				? search<root["left"], value>
+				: never
+			: root["right"] extends {
+						value: any;
+						left: any;
+						right: any;
+					}
+				? search<root["right"], value>
+				: never;
 }
