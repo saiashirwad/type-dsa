@@ -62,9 +62,6 @@ export namespace LinkedList {
 				: [{ value: null; next: null }, li["value"]]
 			: pop<li["next"], { value: li["value"]; next: acc }>;
 
-	// export type at<li extends {value: any, next: any}, n extends number> =
-	// 	n extends 0 ? li['next'] extends null ? li['value'] : null :
-
 	export type tail<li extends { value: any; next: any }> =
 		pop<li> extends [infer _, infer value] ? value : never;
 
