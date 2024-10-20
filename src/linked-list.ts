@@ -68,7 +68,7 @@ export namespace LinkedList {
 	export type tail<li extends { value: any; next: any }> =
 		pop<li> extends [infer _, infer value] ? value : never;
 
-	export type popAndDiscard<
+	export type popAndDiscardValue<
 		li extends { value: any; next: any },
 	> = pop<li> extends [infer _li, infer _] ? _li : never;
 }
