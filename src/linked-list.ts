@@ -34,7 +34,9 @@ export namespace LinkedList {
 
 	export type reverse<
 		li extends { value: any; next: any },
-	> = LinkedList.fromArray<LinkedList.toArray<li>>;
+	> = LinkedList.fromArray<
+		reverseArray<LinkedList.toArray<li>>
+	>;
 
 	export type insertAtFront<
 		li extends { value: any; next: any },

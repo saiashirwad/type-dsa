@@ -23,9 +23,9 @@ type lol = {
 	};
 };
 
-// type lolol = L.reverse<lol>;
+type lolol = L.reverse<lol>;
 
 type result = L.toArray<lol>;
-// type li = L.fromArray<[2, 3, 4]>;
+type li = L.fromArray<[2, 3, 4]>;
 
 // type r = L.pop<lol>;
