@@ -60,11 +60,14 @@ export namespace LinkedList {
 
 	export type pop<
 		li extends { value: any; next: any },
-		acc = {},
+		acc = null,
 	> = li["value"] extends null
 		? "Can't pop from empty list"
 		: li["next"] extends null
-			? [acc, li["value"]]
+			? acc extends { value: any; next: any }
+				? [reverse<acc>, li["value"]]
+				: // idk what to do here, hmm
+					[{ value: null; next: null }, li["value"]]
 			: pop<
 					{
 						value: li["next"]["value"];
@@ -72,4 +75,11 @@ export namespace LinkedList {
 					},
 					{ value: li["value"]; next: acc }
 				>;
+
+	export type tail<li extends { value: any; next: any }> =
+		pop<li> extends [infer _, infer value] ? value : never;
+
+	export type popAndDiscard<
+		li extends { value: any; next: any },
+	> = pop<li> extends [infer _li, infer _] ? _li : never;
 }
