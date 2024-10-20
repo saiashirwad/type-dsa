@@ -36,4 +36,8 @@ export namespace Stack {
 		data: tail<stack["data"]>;
 		capacity: stack["capacity"];
 	};
+
+	export type peek<
+		stack extends { data: any[]; capacity: number },
+	> = stack["data"][0];
 }
