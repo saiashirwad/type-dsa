@@ -14,6 +14,8 @@ type lol = {
 	};
 };
 
+type pushedResult = L.push<L.push<lol, 6>, 8>;
+
 type popped = L.pop<lol>;
 type tail = L.tail<lol>;
 type poppedResult = L.popAndDiscard<lol>;

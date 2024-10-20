@@ -46,17 +46,11 @@ export namespace LinkedList {
 		next: li;
 	};
 
+	// meh
 	export type push<
 		li extends { value: any; next: any },
 		value extends any,
-	> = li["value"] extends null
-		? "Invalid"
-		: li["next"] extends null
-			? {
-					value: li["value"];
-					next: { value: value; next: null };
-				}
-			: {}; // tbd
+	> = fromArray<[...toArray<li>, value]>;
 
 	export type pop<
 		li extends { value: any; next: any },
@@ -66,15 +60,8 @@ export namespace LinkedList {
 		: li["next"] extends null
 			? acc extends { value: any; next: any }
 				? [reverse<acc>, li["value"]]
-				: // idk what to do here, hmm
-					[{ value: null; next: null }, li["value"]]
-			: pop<
-					{
-						value: li["next"]["value"];
-						next: li["next"]["next"];
-					},
-					{ value: li["value"]; next: acc }
-				>;
+				: [{ value: null; next: null }, li["value"]]
+			: pop<li["next"], { value: li["value"]; next: acc }>;
 
 	export type tail<li extends { value: any; next: any }> =
 		pop<li> extends [infer _, infer value] ? value : never;
