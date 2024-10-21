@@ -2,15 +2,15 @@ type split<
 	arr extends any[],
 	a extends any[] = [],
 	b extends any[] = [],
-> = arr extends [infer x]
-	? [[x], []]
-	: arr extends [infer x, infer y, ...infer xs]
-		? split<xs, [...a, x], [...b, y]>
-		: arr extends [infer x]
-			? [a, [...b, x]]
-			: [a, b];
+> = arr extends [infer x, infer y, ...infer xs]
+	? split<xs, [...a, x], [...b, y]>
+	: arr extends [infer x]
+		? [[...a, x], b]
+		: [a, b];
 
-// for now
+type splitResult = split<[1, 2, 3, 4, 5, 6, 7, 8, 9]>;
+
+// tbd
 type merge<a extends number[], b extends number[]> = [
 	...a,
 	...b,
