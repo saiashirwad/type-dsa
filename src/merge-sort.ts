@@ -4,7 +4,11 @@ import type { Tuple } from "./tuple";
 type _split<
 	arr extends any[],
 	nPerSplit extends number,
-	i extends number = nPerSplit,
+	i extends number = Numbers.min<
+		nPerSplit,
+		arr["length"]
+	>,
+	// i extends number = nPerSplit,
 	iAcc extends any[] = [],
 	nAcc extends any[][] = [],
 > = arr["length"] extends 0
@@ -17,7 +21,7 @@ type _split<
 			? _split<
 					xs,
 					nPerSplit,
-					nPerSplit,
+					Numbers.min<nPerSplit, xs["length"]>,
 					[],
 					[...nAcc, [...iAcc, x]]
 				>

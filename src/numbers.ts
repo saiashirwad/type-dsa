@@ -8,6 +8,11 @@ export namespace Numbers {
 		? acc
 		: toTuple<n, [0, ...acc]>;
 
+	export type min<
+		m extends number,
+		n extends number,
+	> = gt<m, n> extends true ? n : m;
+
 	export type add<
 		n extends number,
 		m extends number,
