@@ -1,17 +1,6 @@
 import type { Numbers } from "./numbers";
 import type { splitN } from "./split-n";
 
-export type mergeSort<arr extends number[]> = arr extends []
-	? []
-	: arr extends [infer x]
-		? [x]
-		: splitN<arr, Numbers.div<arr["length"], 2>> extends [
-					infer l extends number[],
-					infer r extends number[],
-				]
-			? merge<mergeSort<l>, mergeSort<r>>
-			: never;
-
 type merge<a extends number[], b extends number[]> = [a, b] extends [
 	[],
 	infer xs extends number[],
@@ -28,4 +17,13 @@ type merge<a extends number[], b extends number[]> = [a, b] extends [
 				: [y, ...merge<a, ys>]
 			: [...a, ...b];
 
-type result = mergeSort<[2, 9, 8, 5, 3, 4, 0, 10]>;
+export type mergeSort<arr extends number[]> = arr extends []
+	? []
+	: arr extends [infer x]
+		? [x]
+		: splitN<arr, Numbers.div<arr["length"], 2>> extends [
+					infer l extends number[],
+					infer r extends number[],
+				]
+			? merge<mergeSort<l>, mergeSort<r>>
+			: never;
