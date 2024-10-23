@@ -32,6 +32,18 @@ export namespace Numbers {
 			0
 		: Tuple.div<toTuple<m>, toTuple<n>>;
 
+	export type mod<
+		m extends number,
+		n extends number,
+	> = Tuple.mod<
+		Tuple.of<m>,
+		Tuple.of<n>
+	> extends infer result extends any[]
+		? result["length"]
+		: 0;
+
+	type result = mod<13, 9>;
+
 	export type gt<
 		n extends number,
 		m extends number,

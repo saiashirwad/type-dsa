@@ -45,6 +45,11 @@ export namespace Tuple {
 			: true
 		: gt<tail<a>, tail<b>>;
 
+	export type lte<
+		a extends any[],
+		b extends any[],
+	> = gt<a, b> extends true ? false : true;
+
 	type _takeN<
 		arr extends any[],
 		n extends any[],
@@ -92,6 +97,17 @@ export namespace Tuple {
 		arr extends any[],
 		n extends number,
 	> = _split<arr, of<n>>;
+
+	export type mod<
+		a extends any[],
+		b extends any[],
+	> = a["length"] extends 0
+		? []
+		: sub<a, b> extends infer c extends any[]
+			? lte<b, c> extends true
+				? mod<c, b>
+				: c
+			: [];
 
 	type result = split<of<21>, 10>;
 	type x = takeN<of<5>, 5>;
