@@ -8,8 +8,6 @@ type split<
 		? [[...a, x], b]
 		: [a, b];
 
-type splitResult = split<[1, 2, 3, 4, 5, 6, 7, 8, 9]>;
-
 // tbd
 type merge<a extends number[], b extends number[]> = [
 	...a,
@@ -23,6 +21,9 @@ export type mergeSort<
 	? []
 	: arr extends [infer x]
 		? [x]
-		: merge<mergeSort<splits[0]>, mergeSort<splits[1]>>;
+		: merge<
+				mergeSort<splits[0]>,
+				mergeSort<splits[1]>
+			>;
 
 type result = mergeSort<[20, 3, 2, 5]>;

@@ -1,5 +1,5 @@
 import type { Numbers } from "./numbers";
-import type { tail } from "./utils";
+import type { Tuple } from "./tuple";
 
 export namespace BST {
 	export type create<value> = {
@@ -14,8 +14,12 @@ export namespace BST {
 	> = arr["length"] extends 0
 		? acc
 		: fromArray<
-				tail<arr>,
-				acc extends { value: any; left: any; right: any }
+				Tuple.tail<arr>,
+				acc extends {
+					value: any;
+					left: any;
+					right: any;
+				}
 					? insert<acc, arr[0]>
 					: { value: arr[0]; left: null; right: null }
 			>;

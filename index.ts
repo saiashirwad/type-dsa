@@ -6,6 +6,7 @@ type tree = BST.fromArray<[5, 4, 10, 2, 20, 8]>;
 type result = BST.search<tree, 10>;
 
 type stack = Stack.fromArray<[1, 2, 3, 4, 5], 6>;
-type popResult = Stack.pop<stack>;
+type popResult = Stack.pop<Stack.pop<stack>>;
 
 type divResult = Numbers.div<20, 2>;
+type lol = Numbers.add<990, 990>;
