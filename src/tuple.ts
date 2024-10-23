@@ -6,6 +6,18 @@ export namespace Tuple {
 		? acc
 		: of<n, [0, ...acc]>;
 
+	export type range<
+		n extends number,
+		acc extends number[] = [],
+	> = n extends 0
+		? acc
+		: [sub<of<n>, [0]>, of<n>] extends [
+					infer n extends any[],
+					infer _i extends any[],
+				]
+			? range<n["length"], [...acc, _i["length"]]>
+			: never;
+
 	export type sub<
 		a extends any[],
 		b extends any[],
