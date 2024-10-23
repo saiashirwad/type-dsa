@@ -42,8 +42,6 @@ export namespace Numbers {
 		? result["length"]
 		: 0;
 
-	type result = mod<13, 9>;
-
 	export type gt<
 		n extends number,
 		m extends number,
@@ -53,4 +51,18 @@ export namespace Numbers {
 		n extends number,
 		m extends number,
 	> = gt<n, m> extends true ? false : true;
+
+	export type isEven<n extends number> = mod<
+		n,
+		2
+	> extends 0
+		? true
+		: false;
+
+	export type isOdd<n extends number> = mod<
+		n,
+		2
+	> extends 0
+		? false
+		: true;
 }

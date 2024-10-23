@@ -109,6 +109,13 @@ export namespace Tuple {
 				: c
 			: [];
 
-	type result = split<of<21>, 10>;
-	type x = takeN<of<5>, 5>;
+	export type isEven<a extends any[]> = mod<
+		a,
+		of<2>
+	> extends [0]
+		? false
+		: true;
+
+	export type isOdd<a extends any[]> =
+		isEven<a> extends true ? false : true;
 }
