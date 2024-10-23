@@ -1,3 +1,5 @@
+import type { Numbers } from "./numbers";
+
 export namespace Tuple {
 	export type of<
 		n extends number,
@@ -24,7 +26,10 @@ export namespace Tuple {
 					infer n extends any[],
 					infer zeros extends any[],
 				]
-			? range<n["length"], [...acc, zeros["length"]]>
+			? range<
+					n["length"],
+					[...acc, sub<zeros, [0]>["length"]]
+				>
 			: never;
 
 	export type sub<

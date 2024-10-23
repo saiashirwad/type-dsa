@@ -1,54 +1,31 @@
 import type { Numbers } from "./numbers";
-import type { Tuple } from "./tuple";
+import type { splitN } from "./split-n";
 
-type _split<
-	arr extends any[],
-	nPerSplit extends number,
-	i extends number = Numbers.min<
-		nPerSplit,
-		arr["length"]
-	>,
-	// i extends number = nPerSplit,
-	iAcc extends any[] = [],
-	nAcc extends any[][] = [],
-> = arr["length"] extends 0
-	? nAcc
-	: [arr, Numbers.sub<i, 1>] extends [
-				[infer x, ...infer xs],
-				infer i extends number,
-			]
-		? i extends 0
-			? _split<
-					xs,
-					nPerSplit,
-					Numbers.min<nPerSplit, xs["length"]>,
-					[],
-					[...nAcc, [...iAcc, x]]
-				>
-			: _split<xs, nPerSplit, i, [...iAcc, x], nAcc>
-		: nAcc;
+export type mergeSort<arr extends number[]> = arr extends []
+	? []
+	: arr extends [infer x]
+		? [x]
+		: splitN<arr, Numbers.div<arr["length"], 2>> extends [
+					infer l extends number[],
+					infer r extends number[],
+				]
+			? merge<mergeSort<l>, mergeSort<r>>
+			: never;
 
-type result = _split<Tuple.range<10>, 5>;
+type merge<a extends number[], b extends number[]> = [a, b] extends [
+	[],
+	infer xs extends number[],
+]
+	? xs
+	: [a, b] extends [infer xs extends number[], []]
+		? xs
+		: [a, b] extends [
+					[infer x extends number, ...infer xs extends number[]],
+					[infer y extends number, ...infer ys extends number[]],
+				]
+			? Numbers.lte<x, y> extends true
+				? [x, ...merge<xs, b>]
+				: [y, ...merge<a, ys>]
+			: [...a, ...b];
 
-// tbd
-type merge<a extends number[], b extends number[]> = [
-	...a,
-	...b,
-];
-
-// export type mergeSort<arr extends number[]> =
-// 	arr extends []
-// 		? []
-// 		: arr extends [infer x extends number]
-// 			? [x]
-// 			: Tuple.split<
-// 						arr,
-// 						Numbers.div<arr["length"], 2>
-// 					> extends [
-// 						infer a extends number[],
-// 						infer b extends number[],
-// 					]
-// 				? merge<mergeSort<a>, mergeSort<b>>
-// 				: arr;
-
-// type mergeSortResult = mergeSort<[20, 3, 2, 5]>;
+type result = mergeSort<[2, 9, 8, 5, 3, 4, 0, 10]>;
