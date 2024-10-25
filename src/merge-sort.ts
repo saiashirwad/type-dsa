@@ -27,3 +27,5 @@ export type mergeSort<arr extends number[]> = arr extends []
 				]
 			? merge<mergeSort<l>, mergeSort<r>>
 			: never;
+
+type result = mergeSort<[2, 5, 1, 6, 8, 9]>;

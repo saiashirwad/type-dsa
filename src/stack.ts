@@ -6,10 +6,7 @@ export namespace Stack {
 		data: any[];
 	};
 
-	export type create<
-		value,
-		capacity extends number,
-	> = {
+	export type create<value, capacity extends number> = {
 		data: [value];
 		capacity: capacity;
 	};
@@ -23,11 +20,7 @@ export namespace Stack {
 		},
 	> = arr["length"] extends 0
 		? acc
-		: fromArray<
-				Tuple.tail<arr>,
-				capacity,
-				push<acc, arr[0]>
-			>;
+		: fromArray<Tuple.tail<arr>, capacity, push<acc, arr[0]>>;
 
 	export type push<
 		stack extends Type,
@@ -44,6 +37,5 @@ export namespace Stack {
 		capacity: stack["capacity"];
 	};
 
-	export type peek<stack extends Type> =
-		stack["data"][0];
+	export type peek<stack extends Type> = stack["data"][0];
 }

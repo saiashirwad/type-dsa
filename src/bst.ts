@@ -2,7 +2,9 @@ import type { Numbers } from "./numbers";
 import type { Tuple } from "./tuple";
 
 export namespace BST {
-	export type create<value> = {
+	export type Type = { value: any; left: any; right: any };
+
+	export type newNode<value> = {
 		value: value;
 		left: null;
 		right: null;
@@ -15,19 +17,13 @@ export namespace BST {
 		? acc
 		: fromArray<
 				Tuple.tail<arr>,
-				acc extends {
-					value: any;
-					left: any;
-					right: any;
-				}
-					? insert<acc, arr[0]>
-					: { value: arr[0]; left: null; right: null }
+				acc extends Type ? insert<acc, arr[0]> : newNode<arr[0]>
 			>;
 
-	export type insert<
-		root extends { value: any; left: any; right: any },
-		value extends number,
-	> = Numbers.gt<root["value"], value> extends false
+	export type insert<root extends Type, value extends number> = Numbers.gt<
+		root["value"],
+		value
+	> extends false
 		? {
 				value: root["value"];
 				left: root["left"];
@@ -48,7 +44,7 @@ export namespace BST {
 			};
 
 	export type search<
-		root extends { value: any; left: any; right: any },
+		root extends Type,
 		value extends number,
 	> = root["value"] extends value
 		? value
